@@ -1,5 +1,7 @@
+![NPM Version](https://img.shields.io/npm/v/schemind)
+
 # schemind
-Read and write to messages serialized as arrays (indexed keys) by defining a schema.
+Read and write to messages serialized as arrays (aka indexed keys) by defining a schema.
 
 ### What?
 TODO

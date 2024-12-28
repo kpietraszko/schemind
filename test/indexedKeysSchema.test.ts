@@ -1,9 +1,9 @@
-import { describe, expect, expectTypeOf, it } from "vitest";
-import { withIndex as i, get, set } from "../src";
+import { describe, it, expect, expectTypeOf } from "vitest";
+import { withIndex as i, get, set, toObject } from "../src/index";
 
 describe("get", () => {
   it("should return value from the index - and of type - specified by the schema", () => {
-    const schema = createSchema();
+    const schema = createTestSchema();
     const someDate = new Date();
     const message = [420, 69, "nice", true, [
       1234567891234567,
@@ -55,8 +55,9 @@ describe("get", () => {
 
 describe("set", () => {
   it("should place values at indexes specified by the schema", () => {
-    const schema = createSchema();
+    const schema = createTestSchema();
     const someDate = new Date();
+
     const newMessage = [] as unknown[];
 
     set(newMessage, schema.someNumber, 420);
@@ -68,7 +69,7 @@ describe("set", () => {
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedBool, false);
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedNumber, 2138);
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedArray, [2, 3, 5, 8]);
-    
+
     const expectedMessage = [420, 69, "nice", true, [
       1234567891234567,
       someDate,
@@ -78,13 +79,65 @@ describe("set", () => {
         [2, 3, 5, 8]
       ]
     ]] as unknown[];
-    
-    // expectTypeOf(newMessage).toEqualTypeOf(expectedMessage);
+
     expect(newMessage).to.deep.equal(expectedMessage);
   });
 });
 
-function createSchema() {
+describe("toObject", () => {
+  it("should convert message to properly typed plain object", () => {
+    const schema = createTestSchema();
+    const someDate = new Date();
+    const message = [420, 69, "nice", true, [
+      1234567891234567,
+      someDate,
+      [
+        2138,
+        false,
+        [2, 3, 5, 8]
+      ]
+    ]] as unknown[];
+
+    type ExpectedObjectType = {
+      someNumber: number, 
+      anotherNumber: number, 
+      nestedThing: {
+        someNestedDate: Date,
+        evenMoreNestedThing: {
+          moreNestedNumber: number,
+          moreNestedBool: boolean,
+          moreNestedArray: number[]
+        }, 
+        someNestedNumber: number
+      }, 
+      someString: string, 
+      someBool: boolean
+    };
+    
+    const expectedObject = {
+      someNumber: 420,
+      anotherNumber: 69,
+      nestedThing: {
+        someNestedDate: someDate,
+        evenMoreNestedThing: {
+          moreNestedNumber: 2138,
+          moreNestedBool: false,
+          moreNestedArray: [2, 3, 5, 8]
+        },
+        someNestedNumber: 1234567891234567
+      },
+      someString: "nice",
+      someBool: true
+    }
+    
+    const result = toObject(message, schema);
+    
+    expectTypeOf(result).toEqualTypeOf<ExpectedObjectType>();
+    expect(result).to.deep.equal(expectedObject);
+  });
+});
+
+export function createTestSchema() {
   return {
     someNumber: i(0)<number>(),
     anotherNumber: i(1)<number>(),

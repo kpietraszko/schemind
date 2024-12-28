@@ -1,1 +1,1 @@
-export { withIndex, get, set } from './indexedKeysSchema'
+export { withIndex, get, set, toObject } from './indexedKeysSchema'
