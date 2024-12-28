@@ -1,1 +1,1 @@
-export { sum } from './sum'
+export { withIndex, get, set } from './indexedKeysSchema'

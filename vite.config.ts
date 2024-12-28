@@ -15,9 +15,9 @@ export default defineConfig({
       name: camelCase(packageName, { pascalCase: true }),
       fileName: packageName,
     },
+    sourcemap: false
   },
   plugins: [
     dts({ rollupTypes: true }),
-  ],
-  test: {},
+  ]
 })

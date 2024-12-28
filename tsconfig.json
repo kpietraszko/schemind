@@ -1,19 +1,23 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext", "DOM"],
+    "lib": ["ESNext"],
     "rootDir": "./src",
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noEmit": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+
+    "strict": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    "noFallthroughCasesInSwitch": true,
+    "verbatimModuleSyntax": true,
+    "noErrorTruncation": true
   },
   "include": ["src/**/*"],
   "exclude": ["**/*.test.ts", "test/**", "node_modules"]

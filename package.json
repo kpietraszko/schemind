@@ -1,44 +1,46 @@
 {
-  "name": "vite-vanilla-library",
+  "name": "schemind",
   "version": "0.0.0",
+  "description": "TODO",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git:kpietraszko/schemind"
+  },
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/vite-vanilla-library.js",
-      "require": "./dist/vite-vanilla-library.cjs"
+      "import": "./dist/schemind.js",
+      "require": "./dist/schemind.cjs"
     }
   },
-  "main": "./dist/vite-vanilla-library.cjs",
-  "module": "./dist/vite-vanilla-library.js",
-  "types": "./dist/vite-vanilla-library.d.ts",
-  "files": ["dist"],
+  "main": "./dist/schemind.cjs",
+  "module": "./dist/schemind.js",
+  "types": "./dist/schemind.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "release": "pnpm test && pnpm build && changelogen --release --push && pnpm publish",
-    "lint": "eslint . --fix",
-    "test": "vitest --run",
+    "test": "vitest --run --typecheck",
     "test:watch": "vitest",
-    "test:coverage": "vitest --coverage",
-    "prepare": "husky install"
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "type-fest": "^4.30.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.11.2",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
-    "@types/node": "^20.17.9",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@types/node": "^22.10.1",
     "camelcase": "^8.0.0",
     "changelogen": "^0.5.7",
-    "eslint": "^9.16.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.10",
-    "typescript": "^5.7.2",
-    "vite": "^5.4.11",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
-    "vitest": "^2.1.8"
-  },
-  "lint-staged": {
-    "*.ts": "pnpm run lint"
+    "vitest": "2.1.8"
   }
 }
