@@ -1,5 +1,6 @@
-![NPM Version](https://img.shields.io/npm/v/schemind)
+![NPM Version](https://img.shields.io/npm/v/schemind?link=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fschemind)
 ![Code Coverage](https://raw.githubusercontent.com/kpietraszko/schemind/refs/heads/main/badge.svg)
+![brotli size](https://deno.bundlejs.com/badge?q=schemind&treeshake=[*]&config={%22compression%22:%22brotli%22})
 
 # schemind
 Read and write to messages serialized as arrays (aka indexed keys) by defining a schema.
