@@ -35,8 +35,9 @@ jobs:
         uses: wjervis7/vitest-badge-action@v1.0.0
         if: success() || failure() # run whether steps succeed or not
         with:
-          result-type: statements
+          result-type: lines
           upload-badge: false
+          badge-text: coverage
 
       - name: Commit badge
         uses: stefanzweifel/git-auto-commit-action@v4
