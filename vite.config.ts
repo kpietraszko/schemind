@@ -1,6 +1,6 @@
-/// <reference types="vitest" />
-import { resolve } from 'node:path'
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
+import { resolve } from 'node:path'
 import dts from 'vite-plugin-dts'
 import camelCase from 'camelcase'
 import packageJson from './package.json'
