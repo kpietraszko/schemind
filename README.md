@@ -3,19 +3,22 @@
 # schemind
 Read and write to messages serialized as arrays (aka indexed keys) by defining a schema.
 
-### What?
+## What?
 TODO
 
-### Installation
+## Installation
 
 ```shell
 npm install schemind
 ```
 
-### Usage
+## Usage
 TODO
 
-### Related work
+## FAQ 
+TODO
+
+## Related work
 * https://github.com/MessagePack-CSharp/MessagePack-CSharp#use-indexed-keys-instead-of-string-keys-contractless
 * https://aarnott.github.io/Nerdbank.MessagePack/docs/customizing-serialization.html?q=indexed#serialize-objects-with-indexes-for-keys
 

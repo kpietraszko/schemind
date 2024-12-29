@@ -88,22 +88,48 @@ type PlainObjectOfSchema<TSchema> = TSchema extends IndexedKeysMessageSchema<unk
     }
     : never;
 
-export function toObject<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(
+export function toPlainObject<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(
     message: readonly unknown[],
     schema: TSchema): PlainObjectOfSchema<TSchema> {
   
   const object: Partial<PlainObjectOfSchema<TSchema>> = {};
+  
   for (const [fieldName, nestedSchemaNode] of Object.entries(schema)) {
     const nestedNode = nestedSchemaNode as IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>;
     let valueToSet = undefined;
     if (isSchemaLeaf(nestedNode)) {
       valueToSet = get(message, nestedNode);
     } else {
-      valueToSet = toObject(message, nestedNode);
+      valueToSet = toPlainObject(message, nestedNode);
     }
     
     object[fieldName as keyof PlainObjectOfSchema<TSchema>] = valueToSet as any;
   }
   
   return object as PlainObjectOfSchema<TSchema>;
+}
+
+export function toIndexedKeysMessage<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(
+    plainObject: PlainObjectOfSchema<TSchema>,
+    schema: TSchema): unknown[] {
+  
+  const message: unknown[] = [];
+  populateIndexedKeysMessage(message, plainObject, schema);
+  return message;
+}
+
+function populateIndexedKeysMessage<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(
+    messageToPopulate: unknown[], 
+    plainObject: PlainObjectOfSchema<TSchema>,
+    schema: TSchema) {
+  
+  for (const [fieldName, nestedSchemaNode] of Object.entries(schema)) {
+    const nestedNode = nestedSchemaNode as IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>;
+    const leafValueOrSubObject = plainObject[fieldName as keyof PlainObjectOfSchema<TSchema>];
+    if (isSchemaLeaf(nestedNode)) {
+      set(messageToPopulate, nestedNode, leafValueOrSubObject);
+    } else {
+      populateIndexedKeysMessage(messageToPopulate, leafValueOrSubObject as PlainObjectOfSchema<TSchema>, nestedNode)
+    }
+  }
 }
