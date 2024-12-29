@@ -29,7 +29,7 @@
     "release": "pnpm test && pnpm build && changelogen --release --push && pnpm publish",
     "test": "vitest --run --typecheck",
     "test:watch": "vitest",
-    "test:coverage": "vitest --run --typecheck --coverages", 
+    "test:coverage": "vitest --run --typecheck --coverage", 
     "prepare": "husky"
   },
   "dependencies": {
