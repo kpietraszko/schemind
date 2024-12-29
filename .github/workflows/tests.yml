@@ -16,6 +16,8 @@ jobs:
   main:
     name: Build and run tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - run: git config --global core.autocrlf false
       - uses: actions/checkout@v4
@@ -27,4 +29,16 @@ jobs:
           version: 8
           run_install: true
       - run: pnpm build
-      - run: pnpm test
+      - run: pnpm test:coverage
+        
+      - name: Publish Results Badge
+        uses: wjervis7/vitest-badge-action@v1.0.0
+        if: success() || failure() # run whether steps succeed or not
+        with:
+          result-type: statements
+          upload-badge: false
+
+      - name: Commit badge
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: './badge.svg'  
