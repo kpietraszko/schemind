@@ -1,8 +1,17 @@
 {
   "name": "schemind",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Read and write to messages serialized as arrays (indexed keys) by defining a schema; \nenabling smaller message size when using protocols such as msgpack or JSON.",
-  "keywords": [ "serialization", "schema", "index", "indexed keys", "array", "msgpack", "pack", "packed" ],
+  "keywords": [
+    "serialization",
+    "schema",
+    "index",
+    "indexed keys",
+    "array",
+    "msgpack",
+    "pack",
+    "packed"
+  ],
   "license": "MIT",
   "author": "kpietraszko",
   "homepage": "https://github.com/kpietraszko/schemind",
@@ -29,7 +38,7 @@
     "release": "pnpm test && pnpm build && changelogen --release --push && pnpm publish",
     "test": "vitest --run --typecheck",
     "test:watch": "vitest",
-    "test:coverage": "vitest --run --typecheck --coverage", 
+    "test:coverage": "vitest --run --typecheck --coverage",
     "prepare": "husky"
   },
   "dependencies": {
@@ -45,7 +54,7 @@
     "typescript": "~5.7.2",
     "vite": "^6.0.3",
     "vite-plugin-dts": "^4.3.0",
-    "vitest": "2.1.8", 
+    "vitest": "2.1.8",
     "@vitest/coverage-v8": "2.1.8"
   }
 }
