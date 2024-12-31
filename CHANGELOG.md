@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://git/kpietraszko/schemind/compare/v0.0.3...v0.1.0)
+
 ## v0.0.3
 
 [compare changes](https://git/kpietraszko/schemind/compare/v0.0.2...v0.0.3)
