@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://git/kpietraszko/schemind/compare/v0.0.2...v0.0.3)
+
+### 🚀 Enhancements
+
+- Schema validation (d52f3f2)
+
+### 📖 Documentation
+
+- Added bundle size badge to README (b718b52)
+- Fixed links on README badges (ce327f1)
+
+### 🏡 Chore
+
+- Update code coverage badge (a664e77)
+
+### ❤️ Contributors
+
+- Kpietraszko ([@kpietraszko](http://github.com/kpietraszko))
+
 ## v0.0.2
 
 [compare changes](https://git/kpietraszko/schemind/compare/v0.0.1...v0.0.2)
