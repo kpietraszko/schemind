@@ -17,7 +17,7 @@
   "homepage": "https://github.com/kpietraszko/schemind",
   "repository": {
     "type": "git",
-    "url": "git:kpietraszko/schemind"
+    "url": "git+https://github.com/kpietraszko/schemind.git"
   },
   "type": "module",
   "exports": {
