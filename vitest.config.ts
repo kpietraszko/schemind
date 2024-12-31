@@ -3,7 +3,10 @@
 export default defineConfig({
   test: {
     coverage: {
-      reporter: 'json-summary'
+      reporter: ['json-summary','text']
+    },
+    typecheck: {
+      include: ['**/*.{test,spec}.?(c|m)[jt]s?(x)']
     }
   }
 });

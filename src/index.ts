@@ -1,1 +1,2 @@
-export { withIndex, get, set, toPlainObject, toIndexedKeysMessage } from './indexedKeysSchema'
+export { validateSchema, withIndex, get, set, toPlainObject, toIndexedKeysMessage, InvalidSchemaError } from './indexedKeysSchema'
+export type { ValidIndexedKeysMessageSchema } from './indexedKeysSchema'

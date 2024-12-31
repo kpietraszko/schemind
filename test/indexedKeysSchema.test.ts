@@ -1,5 +1,12 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
-import { withIndex as i, get, set, toPlainObject, toIndexedKeysMessage } from "../src/index";
+import {
+  withIndex as i,
+  get,
+  set,
+  toPlainObject,
+  toIndexedKeysMessage,
+  validateSchema, type ValidIndexedKeysMessageSchema, InvalidSchemaError
+} from "../src/index";
 
 const someDate = new Date();
 const message = [
@@ -55,7 +62,7 @@ const messageAsPlainObject = {
 describe("get", () => {
   it("should return value from the index - and of type - specified by the schema", () => {
     const schema = createTestSchema();
-
+    
     const r1 = get(message, schema.anotherNumber);
     expectTypeOf(r1).toBeNumber();
     expect(r1).to.equal(69);
@@ -146,9 +153,73 @@ describe("toIndexedKeysMessage", () => {
   });
 });
 
+describe("validateSchema", () => {
+  it("shouldn't throw if schema is correct", () => {
+    createTestSchema();
+  });
+  
+  it("should throw if there are duplicate indexes-paths in the schema", () => {
+    expect(() => validateSchema({
+      someField: i(0)<number>(),
+      anotherFieldWithSameIndex: i(0)<number>(),
+    })).toThrowError(new InvalidSchemaError());
+
+    expect(() => validateSchema({
+      nestedThing: i(0)({
+        someNestedField: i(0)<string>()
+      }),
+      anotherNestedThing: i(0)({
+        anotherNestedFieldWithSameIndex: i(0)<number>()
+      }),
+    })).toThrowError(new InvalidSchemaError());
+  });
+  
+  it("should throw if subschema isn't wrapped in withIndex", () => {
+    const schema = {
+      someNumber: i(0)<number>(),
+      anotherNumber: i(1)<number>(),
+      nestedThing: {
+        someNestedDate: i(1)<Date>(),
+        evenMoreNestedThing: i(2)({
+          moreNestedNumber: i(0)<number>(),
+          moreNestedBool: i(1)<boolean>(),
+          moreNestedArray: i(2)<number[]>()
+        }),
+        someNestedNumber: i(0)<number>(),
+      },
+      someString: i(2)<string>(),
+      someArray: i(4)<string[]>(),
+      someBool: i(3)<boolean>()
+    };
+    
+    expect(() => validateSchema(schema))
+        .toThrowError(new InvalidSchemaError());
+
+    const schema2 = {
+      someNumber: i(0)<number>(),
+      anotherNumber: i(1)<number>(),
+      nestedThing: i(5)({
+        someNestedDate: i(1)<Date>(),
+        evenMoreNestedThing: {
+          moreNestedNumber: i(0)<number>(),
+          moreNestedBool: i(1)<boolean>(),
+          moreNestedArray: i(2)<number[]>()
+        },
+        someNestedNumber: i(0)<number>(),
+      }),
+      someString: i(2)<string>(),
+      someArray: i(4)<string[]>(),
+      someBool: i(3)<boolean>()
+    };
+
+    expect(() => validateSchema(schema2))
+        .toThrowError(new InvalidSchemaError());
+  });
+})
+
 export function createTestSchema() {
   // the order of schema properties is intentionally shuffled here, to test that it doesn't matter
-  return {
+  const schema = {
     someNumber: i(0)<number>(),
     anotherNumber: i(1)<number>(),
     nestedThing: i(5)({
@@ -164,4 +235,6 @@ export function createTestSchema() {
     someArray: i(4)<string[]>(),
     someBool: i(3)<boolean>()
   };
+  
+  return validateSchema(schema);
 }
