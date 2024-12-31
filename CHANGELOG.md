@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v0.1.0...v0.1.1)
+
+### 🏡 Chore
+
+- Fixed "repository" in package.json ([a2a5b4d](https://github.com/kpietraszko/schemind/commit/a2a5b4d))
+
+### ❤️ Contributors
+
+- Kpietraszko ([@kpietraszko](http://github.com/kpietraszko))
+
 ## v0.1.0
 
 [compare changes](https://git/kpietraszko/schemind/compare/v0.0.3...v0.1.0)
