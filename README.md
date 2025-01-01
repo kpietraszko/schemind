@@ -27,7 +27,7 @@ In formats like JSON, a message normally looks something like this:
 ```
 *I'm using JSON as an example here, but schemind is essentially protocol-agnostic. I use it with MessagePack.*
 
-If you desperately need to make this message more compact, you could alternatively serialize it as such:
+If you desperately need to make this message more compact, you could alternatively serialize it like so:
 ```json
 [
   1,
@@ -49,9 +49,9 @@ If you desperately need to make this message more compact, you could alternative
 
 This is sometimes referred to as a message with *indexed keys*.
 
-*Note that this obviously has some drawbacks: [recommended reading about the pros and cons of this format](https://github.com/MessagePack-CSharp/MessagePack-CSharp#use-indexed-keys-instead-of-string-keys-contractless).*
-
 **Schemind** helps you create and read such messages, if your (de)serializer doesn't support this technique.
+
+*Note that this format obviously has some drawbacks: [recommended reading about the pros and cons](https://github.com/MessagePack-CSharp/MessagePack-CSharp#use-indexed-keys-instead-of-string-keys-contractless).*
 
 ## Installation
 
