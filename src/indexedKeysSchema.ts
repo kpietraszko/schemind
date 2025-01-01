@@ -1,16 +1,22 @@
 ﻿import type { NonNegativeInteger } from "type-fest";
 
+export const indexesPathReversed = Symbol("indexesPathReversed");
+const fieldType = Symbol("fieldType");
 const isSchemaLeafTag = Symbol("isSchemaLeaf");
 const isValidSchemaLeaf = Symbol("isValidSchemaLeaf");
+const schemaRoot = Symbol("schemaRoot");
 
 type IndexesPath = number[];
 export type SchemaLeaf<TField> = {
-  indexesPathReversed: IndexesPath,
-  fieldType: TField,
+  [indexesPathReversed]: IndexesPath,
+  [fieldType]: TField,
   [isSchemaLeafTag]: true
 };
 
-export type ValidSchemaLeaf<TField> = SchemaLeaf<TField> & { [isValidSchemaLeaf]: true };
+export type ValidSchemaLeaf<TField> = SchemaLeaf<TField> & { 
+  [isValidSchemaLeaf]: true,
+  [schemaRoot]: ValidIndexedKeysMessageSchema<unknown>
+};
 
 export type IndexedKeysMessageSchema<TSchema> = {
   [K in keyof TSchema]: TSchema[K] extends SchemaLeaf<infer TField>
@@ -69,17 +75,17 @@ function validateSchemaRecursively(
 
 function validateSchemaLeaf(schemaLeaf: SchemaLeaf<unknown>, encounteredIndexesPaths: IndexesPath[], currentTreeLevel: number){
   const duplicateIndexesPathDetected = encounteredIndexesPaths.some(encounteredPath =>
-      encounteredPath.length === schemaLeaf.indexesPathReversed.length && 
-      encounteredPath.every((pathElement, index) => pathElement === schemaLeaf.indexesPathReversed[index]));
+      encounteredPath.length === schemaLeaf[indexesPathReversed].length && 
+      encounteredPath.every((pathElement, index) => pathElement === schemaLeaf[indexesPathReversed][index]));
 
   if (duplicateIndexesPathDetected)
   {
     throw new InvalidSchemaError()
   }
 
-  encounteredIndexesPaths.push(schemaLeaf.indexesPathReversed);
+  encounteredIndexesPaths.push(schemaLeaf[indexesPathReversed]);
 
-  const indexesPathLengthDoesntMatchLevel = schemaLeaf.indexesPathReversed.length !== (currentTreeLevel + 1);
+  const indexesPathLengthDoesntMatchLevel = schemaLeaf[indexesPathReversed].length !== (currentTreeLevel + 1);
   if (indexesPathLengthDoesntMatchLevel)
   {
     throw new InvalidSchemaError()
@@ -95,8 +101,8 @@ export function withIndex<const TIndex extends number>(index: NonNegativeInteger
     }
 
     return {
-      indexesPathReversed: [index] as number[],
-      fieldType: undefined as TField,
+      [indexesPathReversed]: [index] as number[],
+      [fieldType]: undefined as TField,
       [isSchemaLeafTag]: true
     } as const as ReturnedSchemaNode<TField, TNestedSchema>;
   };
@@ -115,7 +121,7 @@ function addIndexToPathsRecursively(
   for (const [_, nestedSchemaNode] of Object.entries(schemaNode)) {
     const nestedNode = nestedSchemaNode as IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>;
     if (isSchemaLeaf(nestedNode)) {
-      nestedNode.indexesPathReversed.push(indexToAdd);
+      nestedNode[indexesPathReversed].push(indexToAdd);
     } else {
       addIndexToPathsRecursively(nestedNode, indexToAdd);
     }
