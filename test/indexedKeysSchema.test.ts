@@ -5,7 +5,7 @@ import {
   set,
   toPlainObject,
   toIndexedKeysMessage,
-  validateSchema, 
+  buildSchema, 
   InvalidSchemaError
 } from "../src/index";
 
@@ -222,18 +222,18 @@ describe("toIndexedKeysMessage", () => {
   });
 });
 
-describe("validateSchema", () => {
-  it("shouldn't throw if schema is correct", () => {
+describe("buildSchema", () => {
+  it("shouldn't throw if schema is valid", () => {
     createTestSchema();
   });
   
   it("should throw if there are duplicate indexes-paths in the schema", () => {
-    expect(() => validateSchema({
+    expect(() => buildSchema({
       someField: i(0)<number>(),
       anotherFieldWithSameIndex: i(0)<number>(),
     })).toThrowError(new InvalidSchemaError());
 
-    expect(() => validateSchema({
+    expect(() => buildSchema({
       nestedThing: i(0)({
         someNestedField: i(0)<string>()
       }),
@@ -261,7 +261,7 @@ describe("validateSchema", () => {
       someBool: i(3)<boolean>()
     };
     
-    expect(() => validateSchema(schema))
+    expect(() => buildSchema(schema))
         .toThrowError(new InvalidSchemaError());
 
     const schema2 = {
@@ -281,7 +281,7 @@ describe("validateSchema", () => {
       someBool: i(3)<boolean>()
     };
 
-    expect(() => validateSchema(schema2))
+    expect(() => buildSchema(schema2))
         .toThrowError(new InvalidSchemaError());
   });
 })
@@ -305,5 +305,5 @@ export function createTestSchema() {
     someBool: i(3)<boolean>()
   };
   
-  return validateSchema(schema);
+  return buildSchema(schema);
 }

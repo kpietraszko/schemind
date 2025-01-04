@@ -1,4 +1,4 @@
-export { validateSchema, withIndex, InvalidSchemaError } from './indexedKeysSchema'
+export { buildSchema, withIndex, InvalidSchemaError } from './indexedKeysSchema'
 export { get, set } from "./raw";
 export { toPlainObject, toIndexedKeysMessage } from "./convenient";
 

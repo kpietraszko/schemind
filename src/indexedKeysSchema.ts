@@ -38,7 +38,7 @@ export type ValidIndexedKeysMessageSchema<TSchema> = {
   [K in keyof TSchema]: TSchema[K] extends ValidSchemaLeaf<infer TField>
       ? ValidSchemaLeaf<TField>
       : TSchema[K] extends SchemaLeaf<unknown> 
-          ? Invalid<"Schema needs to be validated before you use it, did you forget to call validateSchema()?">
+          ? Invalid<"Schema needs to be built before you use it, did you forget to call buildSchema()?">
           : ToValidIndexedKeysMessageSchema<TSchema[K]>;
 };
 
@@ -54,7 +54,7 @@ export class InvalidSchemaError extends Error {
   }
 }
 
-export function validateSchema<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(schema: TSchema) {
+export function buildSchema<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(schema: TSchema) {
   validateSchemaRecursively(schema, schema, [], 0);
   return schema as unknown as ToValidIndexedKeysMessageSchema<TSchema>;
 }
