@@ -1,6 +1,39 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v0.1.1...v0.2.0)
+
+### 🚀 Enhancements
+
+- Get and set functions now also available as schemaLeaf.get()/.set() ([bdace03](https://github.com/kpietraszko/schemind/commit/bdace03))
+
+### 💅 Refactors
+
+- Moved public (exported) functions to separate files ([6776454](https://github.com/kpietraszko/schemind/commit/6776454))
+- Changed property keys to symbols for consistency ([9d276ad](https://github.com/kpietraszko/schemind/commit/9d276ad))
+- ⚠️  Renamed validateSchema to buildSchema ([278d401](https://github.com/kpietraszko/schemind/commit/278d401))
+
+### 📖 Documentation
+
+- Grammar ([a8b47dc](https://github.com/kpietraszko/schemind/commit/a8b47dc))
+
+### 🏡 Chore
+
+- Config renovate to run once a month ([a390d3c](https://github.com/kpietraszko/schemind/commit/a390d3c))
+- Update code coverage badge ([3a07a20](https://github.com/kpietraszko/schemind/commit/3a07a20))
+- Update code coverage badge ([67d9bf9](https://github.com/kpietraszko/schemind/commit/67d9bf9))
+- Update code coverage badge ([b0b53c1](https://github.com/kpietraszko/schemind/commit/b0b53c1))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Renamed validateSchema to buildSchema ([278d401](https://github.com/kpietraszko/schemind/commit/278d401))
+
+### ❤️ Contributors
+
+- Kpietraszko ([@kpietraszko](http://github.com/kpietraszko))
+
 ## v0.1.1
 
 [compare changes](https://github.com/kpietraszko/schemind/compare/v0.1.0...v0.1.1)
