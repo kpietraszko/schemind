@@ -2,4 +2,4 @@ export { validateSchema, withIndex, InvalidSchemaError } from './indexedKeysSche
 export { get, set } from "./raw";
 export { toPlainObject, toIndexedKeysMessage } from "./convenient";
 
-export type { ValidIndexedKeysMessageSchema } from './indexedKeysSchema'
+export type { ValidIndexedKeysMessageSchema } from './indexedKeysSchema';

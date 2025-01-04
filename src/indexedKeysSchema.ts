@@ -1,10 +1,10 @@
 ﻿import type { NonNegativeInteger } from "type-fest";
+import { get, set } from "./raw";
 
 export const indexesPathReversed = Symbol("indexesPathReversed");
 const fieldType = Symbol("fieldType");
 const isSchemaLeafTag = Symbol("isSchemaLeaf");
-const isValidSchemaLeaf = Symbol("isValidSchemaLeaf");
-const schemaRoot = Symbol("schemaRoot");
+const isValidSchemaLeafTag = Symbol("isValidSchemaLeaf");
 
 type IndexesPath = number[];
 export type SchemaLeaf<TField> = {
@@ -14,8 +14,9 @@ export type SchemaLeaf<TField> = {
 };
 
 export type ValidSchemaLeaf<TField> = SchemaLeaf<TField> & { 
-  [isValidSchemaLeaf]: true,
-  [schemaRoot]: ValidIndexedKeysMessageSchema<unknown>
+  [isValidSchemaLeafTag]: true,
+  get: (message: unknown[]) => TField,
+  set: (message: unknown[], value: TField) => void
 };
 
 export type IndexedKeysMessageSchema<TSchema> = {
@@ -54,26 +55,32 @@ export class InvalidSchemaError extends Error {
 }
 
 export function validateSchema<TSchema extends IndexedKeysMessageSchema<TSchemaInner>, TSchemaInner>(schema: TSchema) {
-  validateSchemaRecursively(schema, [], 0);
+  validateSchemaRecursively(schema, schema, [], 0);
   return schema as unknown as ToValidIndexedKeysMessageSchema<TSchema>;
 }
 
 function validateSchemaRecursively(
+    rootSchema: IndexedKeysMessageSchema<unknown>, 
     schemaNode: IndexedKeysMessageSchema<unknown>,
     encounteredIndexesPaths: IndexesPath[],
     currentTreeLevel: number){
 
   for (const [_, nestedSchemaNode] of Object.entries(schemaNode)) {
-    const nestedNode = nestedSchemaNode as IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>;
-    if (isSchemaLeaf(nestedNode)) {
-      validateSchemaLeaf(nestedNode, encounteredIndexesPaths, currentTreeLevel);
+    const subschemaOrLeaf = nestedSchemaNode as IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>;
+    if (isSchemaLeaf(subschemaOrLeaf)) {
+      validateSchemaLeaf(subschemaOrLeaf, encounteredIndexesPaths, currentTreeLevel);
+      
+      subschemaOrLeaf.get = (message) => get(message, subschemaOrLeaf);
+      subschemaOrLeaf.set = (message, value) => set(message, subschemaOrLeaf, value);
     } else {
-      validateSchemaRecursively(nestedNode, encounteredIndexesPaths, currentTreeLevel + 1);
+      validateSchemaRecursively(rootSchema, subschemaOrLeaf, encounteredIndexesPaths, currentTreeLevel + 1);
     }
   }
 }
 
-function validateSchemaLeaf(schemaLeaf: SchemaLeaf<unknown>, encounteredIndexesPaths: IndexesPath[], currentTreeLevel: number){
+function validateSchemaLeaf(schemaLeaf: SchemaLeaf<unknown>, 
+    encounteredIndexesPaths: IndexesPath[], currentTreeLevel: number): asserts schemaLeaf is ValidSchemaLeaf<unknown>{
+  
   const duplicateIndexesPathDetected = encounteredIndexesPaths.some(encounteredPath =>
       encounteredPath.length === schemaLeaf[indexesPathReversed].length && 
       encounteredPath.every((pathElement, index) => pathElement === schemaLeaf[indexesPathReversed][index]));
@@ -109,8 +116,7 @@ export function withIndex<const TIndex extends number>(index: NonNegativeInteger
 }
 
 // intentionally not validating that it has the "isValidSchemaLeaf" symbol property, because it actually doesn't - it's just a type trick
-export function isSchemaLeaf(value: IndexedKeysMessageSchema<unknown> | ValidSchemaLeaf<unknown>): value is ValidSchemaLeaf<unknown>;
-export function isSchemaLeaf(value: IndexedKeysMessageSchema<unknown> | SchemaLeaf<unknown>): value is SchemaLeaf<unknown> {
+export function isSchemaLeaf<TLeaf extends SchemaLeaf<unknown>>(value: IndexedKeysMessageSchema<unknown> | TLeaf): value is TLeaf {
   return Object.hasOwn(value, isSchemaLeafTag);
 }
 

@@ -51,6 +51,7 @@ This is sometimes referred to as a message with *indexed keys*.
 
 **Schemind** helps you create and read such messages, if your (de)serializer doesn't support this technique.
 
+
 *Note that this format obviously has some drawbacks: [recommended reading about the pros and cons](https://github.com/MessagePack-CSharp/MessagePack-CSharp#use-indexed-keys-instead-of-string-keys-contractless).*
 
 ## Installation

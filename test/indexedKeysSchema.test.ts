@@ -5,7 +5,8 @@ import {
   set,
   toPlainObject,
   toIndexedKeysMessage,
-  validateSchema, type ValidIndexedKeysMessageSchema, InvalidSchemaError
+  validateSchema, 
+  InvalidSchemaError
 } from "../src/index";
 
 const someDate = new Date();
@@ -105,6 +106,52 @@ describe("get", () => {
   });
 });
 
+describe("leaf.get", () => {
+  it("should return value from the index - and of type - specified by the schema", () => {
+    const schema = createTestSchema();
+    
+    const r1 = schema.anotherNumber.get(message);
+    expectTypeOf(r1).toBeNumber();
+    expect(r1).to.equal(69);
+
+    const r2 = schema.someNumber.get(message);
+    expectTypeOf(r2).toBeNumber();
+    expect(r2).to.equal(420);
+
+    const r3 = schema.someBool.get(message);
+    expectTypeOf(r3).toBeBoolean();
+    expect(r3).to.equal(true);
+
+    const r4 = schema.someString.get(message);
+    expectTypeOf(r4).toBeString();
+    expect(r4).to.equal("nice");
+
+    const r5 = schema.someArray.get(message);
+    expectTypeOf(r5).toEqualTypeOf<string[]>();
+    expect(r5).to.deep.equal(["quick", "brown", "fox"]);
+
+    const r6 = schema.nestedThing.someNestedNumber.get(message);
+    expectTypeOf(r6).toBeNumber();
+    expect(r6).to.equal(1234567891234567);
+
+    const r7 = schema.nestedThing.someNestedDate.get(message);
+    expectTypeOf(r7).toEqualTypeOf<Date>();
+    expect(r7).to.equal(someDate);
+
+    const r8 = schema.nestedThing.evenMoreNestedThing.moreNestedNumber.get(message);
+    expectTypeOf(r8).toBeNumber();
+    expect(r8).to.equal(2138);
+
+    const r9 = schema.nestedThing.evenMoreNestedThing.moreNestedBool.get(message);
+    expectTypeOf(r9).toBeBoolean();
+    expect(r9).to.equal(false);
+
+    const r10 = schema.nestedThing.evenMoreNestedThing.moreNestedArray.get(message);
+    expectTypeOf(r10).toEqualTypeOf<number[]>();
+    expect(r10).to.deep.equal([2, 3, 5, 8]);
+  });
+});
+
 describe("set", () => {
   it("should place values at indexes specified by the schema", () => {
     const schema = createTestSchema();
@@ -121,6 +168,28 @@ describe("set", () => {
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedBool, false);
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedNumber, 2138);
     set(newMessage, schema.nestedThing.evenMoreNestedThing.moreNestedArray, [2, 3, 5, 8]);
+
+    const expectedMessage = message;
+    expect(newMessage).to.deep.equal(expectedMessage);
+  });
+});
+
+describe("leaf.set", () => {
+  it("should place values at indexes specified by the schema", () => {
+    const schema = createTestSchema();
+
+    const newMessage = [] as unknown[];
+
+    schema.someNumber.set(newMessage, 420);
+    schema.someString.set(newMessage, "nice");
+    schema.anotherNumber.set(newMessage, 69);
+    schema.someBool.set(newMessage, true);
+    schema.someArray.set(newMessage, ["quick", "brown", "fox"]);
+    schema.nestedThing.someNestedDate.set(newMessage, someDate);
+    schema.nestedThing.someNestedNumber.set(newMessage, 1234567891234567);
+    schema.nestedThing.evenMoreNestedThing.moreNestedBool.set(newMessage, false);
+    schema.nestedThing.evenMoreNestedThing.moreNestedNumber.set(newMessage, 2138);
+    schema.nestedThing.evenMoreNestedThing.moreNestedArray.set(newMessage, [2, 3, 5, 8]);
 
     const expectedMessage = message;
     expect(newMessage).to.deep.equal(expectedMessage);
