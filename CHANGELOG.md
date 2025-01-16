@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.1
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v0.2.0...v0.2.1)
+
+### 📖 Documentation
+
+- Document usage in readme ([0c5b419](https://github.com/kpietraszko/schemind/commit/0c5b419))
+
+### ❤️ Contributors
+
+- Kpietraszko ([@kpietraszko](http://github.com/kpietraszko))
+
 ## v0.2.0
 
 [compare changes](https://github.com/kpietraszko/schemind/compare/v0.1.1...v0.2.0)
