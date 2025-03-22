@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.0.0
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v0.2.1...v1.0.0)
+
+### 🏡 Chore
+
+- Update code coverage badge ([ce2da2d](https://github.com/kpietraszko/schemind/commit/ce2da2d))
+
 ## v0.2.1
 
 [compare changes](https://github.com/kpietraszko/schemind/compare/v0.2.0...v0.2.1)
