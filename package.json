@@ -47,7 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@types/node": "^22.15.34",
+    "@types/node": "^22.16.0",
     "camelcase": "^8.0.0",
     "changelogen": "^0.6.1",
     "husky": "^9.1.7",
