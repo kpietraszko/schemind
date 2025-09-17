@@ -42,7 +42,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "type-fest": "^4.41.0"
+    "type-fest": "^5.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
