@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.0.1
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v1.0.0...v1.0.1)
+
 ## v1.0.0
 
 [compare changes](https://github.com/kpietraszko/schemind/compare/v0.2.1...v1.0.0)

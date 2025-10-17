@@ -1,6 +1,6 @@
 {
   "name": "schemind",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read and write to messages serialized as arrays (indexed keys) by defining a schema, \nenabling smaller message size when using protocols such as msgpack or JSON.",
   "keywords": [
     "serialization",
