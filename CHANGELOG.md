@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v1.0.2
+
+[compare changes](https://github.com/kpietraszko/schemind/compare/v1.0.1...v1.0.2)
+
+### 🏡 Chore
+
+- Update code coverage badge ([fbb9832](https://github.com/kpietraszko/schemind/commit/fbb9832))
+- Fix coverage reporting after upgrading to vitest 4 ([405070c](https://github.com/kpietraszko/schemind/commit/405070c))
+- Changed test coverage logging ([528b500](https://github.com/kpietraszko/schemind/commit/528b500))
+
+### ❤️ Contributors
+
+- Kpietraszko ([@kpietraszko](https://github.com/kpietraszko))
+
 ## v1.0.1
 
 [compare changes](https://github.com/kpietraszko/schemind/compare/v1.0.0...v1.0.1)
