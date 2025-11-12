@@ -25,8 +25,8 @@ importers:
         specifier: 4.0.6
         version: 4.0.6(vitest@4.0.6(@types/node@24.9.2)(jiti@2.6.0)(yaml@2.5.1))
       camelcase:
-        specifier: ^8.0.0
-        version: 8.0.0
+        specifier: ^9.0.0
+        version: 9.0.0
       changelogen:
         specifier: ^0.6.2
         version: 0.6.2(magicast@0.3.5)
@@ -637,9 +637,9 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
-  camelcase@8.0.0:
-    resolution: {integrity: sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==}
-    engines: {node: '>=16'}
+  camelcase@9.0.0:
+    resolution: {integrity: sha512-TO9xmyXTZ9HUHI8M1OnvExxYB0eYVS/1e5s7IDMTAoIcwUd+aNcFODs6Xk83mobk0velyHFQgA1yIrvYc6wclw==}
+    engines: {node: '>=20'}
 
   chai@6.2.0:
     resolution: {integrity: sha512-aUTnJc/JipRzJrNADXVvpVqi6CO0dn3nx4EVPxijri+fj3LUUDyZQOgVeW54Ob3Y1Xh9Iz8f+CgaCl8v0mn9bA==}
@@ -2025,7 +2025,7 @@ snapshots:
 
   callsites@3.1.0: {}
 
-  camelcase@8.0.0: {}
+  camelcase@9.0.0: {}
 
   chai@6.2.0: {}
 
