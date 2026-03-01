@@ -42,12 +42,12 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "type-fest": "^5.4.3"
+    "type-fest": "^5.4.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.4.0",
-    "@commitlint/config-conventional": "^20.4.0",
-    "@types/node": "^24.10.9",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "@types/node": "^24.11.0",
     "camelcase": "^9.0.0",
     "changelogen": "^0.6.2",
     "husky": "^9.1.7",
